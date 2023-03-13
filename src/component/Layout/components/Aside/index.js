@@ -14,14 +14,16 @@ const cx = classNames.bind(styles);
 
 function Aside() {
     const [focusValue, setFocusValue] = useState('id1');
+
     const handlePathFocus = (e) => {
         document.querySelector(`#${focusValue}`).classList.remove('bgc');
-        console.log(focusValue);
         setFocusValue(e.target.id);
     };
+
     useEffect(() => {
         document.querySelector(`#${focusValue}`).classList.add('bgc');
     }, [focusValue]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('logo')}>
