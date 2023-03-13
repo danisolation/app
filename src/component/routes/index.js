@@ -3,6 +3,7 @@
 // Pages
 import DashBoard from '../pages/Dashboard';
 import HistoricalData from '../pages/HistoricalData';
+import Manager from '../pages/Manager';
 import SensorData from '../pages/SensorData';
 import Settings from '../pages/Settings';
 
@@ -10,6 +11,7 @@ import Settings from '../pages/Settings';
 const publicRoutes = [
     { path: '/', component: DashBoard },
     { path: '/historicaldata', component: HistoricalData },
+    { path: '/manager', component: Manager },
     { path: '/sensordata', component: SensorData },
     { path: '/settings', component: Settings },
 ];

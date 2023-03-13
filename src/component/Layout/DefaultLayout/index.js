@@ -1,4 +1,4 @@
-import Aside from '../components/Aside';
+import Aside from '../components/Aside/Aside';
 import classNames from 'classnames/bind';
 import styles from './DefaultLayout.module.scss';
 

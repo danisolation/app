@@ -1,0 +1,47 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    line-height: 16px;
+    cursor: pointer;
+    background-color: var(--primary);
+    user-select: none;
+    color: var(--text-color);
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.5;
+    }
+}
+
+.icon + .title,
+.title + .icon {
+    margin-left: 64px;
+}
+
+// Button types
+.primary {
+    margin-top: 64px;
+    border-radius: 16px;
+
+    &:hover {
+        background-color: #3df23a;
+        opacity: 0.4;
+    }
+
+    &:active {
+        opacity: 1;
+    }
+}
+// Disabled
+
+// Button sizes
+
+.icon {
+    display: inline-block;
+    width: 0px;
+    text-align: center;
+}
