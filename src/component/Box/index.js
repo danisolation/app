@@ -4,7 +4,19 @@ import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
-function Box({ to, primary = false, dev = false, style, children, id, className, leftIcon, rightIcon, ...passProps }) {
+function Box({
+    to,
+    primary = false,
+    dev = false,
+    plus = false,
+    style,
+    children,
+    id,
+    className,
+    leftIcon,
+    rightIcon,
+    ...passProps
+}) {
     let Comp = 'div';
     const props = {
         ...passProps,
@@ -16,6 +28,8 @@ function Box({ to, primary = false, dev = false, style, children, id, className,
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        dev,
+        plus,
     });
     return (
         <Comp id={id} className={classes} {...props}>

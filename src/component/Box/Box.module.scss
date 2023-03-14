@@ -3,7 +3,7 @@
     width: calc(100% / 3);
 
     height: 300px;
-    padding: 10px;
+    padding: 20px;
 }
 
 .container {
@@ -18,10 +18,19 @@
 .title {
     font-size: 8rem;
     font-family: Inter;
-    font-weight: -700;
 }
 
 .icon + .title,
 .title + .icon {
     margin-left: 16px;
+}
+
+.dev .container {
+    background: #bffffb;
+    border: transparent;
+    border-radius: 19px;
+}
+
+.plus .container {
+    border: 1px dashed #6270f0;
 }
