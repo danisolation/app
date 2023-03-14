@@ -1,0 +1,27 @@
+.wrapper {
+    float: left;
+    width: calc(100% / 3);
+
+    height: 300px;
+    padding: 10px;
+}
+
+.container {
+    border: 6px solid #000000;
+    border-radius: 25px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 8rem;
+    font-family: Inter;
+    font-weight: -700;
+}
+
+.icon + .title,
+.title + .icon {
+    margin-left: 16px;
+}

@@ -10,7 +10,7 @@ function Background() {
             <div className={cx('left', 'col')}>GOOD MORNING</div>
             <div className={cx('right', 'col')}>
                 <div className={cx('top', 'row')}>5:00</div>
-                <div className={cx('row')}>Thứ hai 13/3</div>
+                <div className={cx('bot', 'row')}>Thứ hai 13/3</div>
             </div>
         </div>
     );
