@@ -6,12 +6,12 @@ const cx = classNames.bind(styles);
 
 const DATA = [
     {
-        des: 'Cu nhu loai meo con',
-        list: ['abc', 'dfg'],
+        des: 'Color and theme',
+        list: ['light', 'dark'],
     },
     {
-        des: 'Tam nang trong hien nha',
-        list: ['abc', 'dfg'],
+        des: 'Sound',
+        list: ['Alert', 'Alert', 'Alert', 'Alert', 'Alert'],
     },
 ];
 
