@@ -6,6 +6,9 @@ const images = {
     lamp: require('~/assets/img/lamp.png'),
     water: require('~/assets/img/water-tap.png'),
     plus: require('~/assets/img/plus.png'),
+    light: require('~/assets/img/light.png'),
+    pir: require('~/assets/img/pir.png'),
+    temp: require('~/assets/img/temp.png'),
 };
 
 export default images;
