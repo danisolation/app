@@ -6,6 +6,8 @@ import HistoricalData from '../pages/HistoricalData';
 import Manager from '../pages/Manager';
 import SensorData from '../pages/SensorData';
 import Settings from '../pages/Settings';
+import Historical from '~/pages/HistoricalData/Historical';
+import Analytics from '~/pages/HistoricalData/Analytics';
 
 // Public Routes
 const publicRoutes = [
@@ -14,6 +16,8 @@ const publicRoutes = [
     { path: '/manager', component: Manager },
     { path: '/sensordata', component: SensorData },
     { path: '/settings', component: Settings },
+    { path: '/historicaldata/historical', component: Historical },
+    { path: '/historicaldata/analytics', component: Analytics },
 ];
 
 const privateRoutes = [];

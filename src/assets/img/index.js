@@ -9,6 +9,9 @@ const images = {
     light: require('~/assets/img/light.png'),
     pir: require('~/assets/img/pir.png'),
     temp: require('~/assets/img/temp.png'),
+    home: require('~/assets/img/home.png'),
+    checked: require('~/assets/img/checked.png'),
+    frequency: require('~/assets/img/frequency-graph.png'),
 };
 
 export default images;

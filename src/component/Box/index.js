@@ -9,6 +9,7 @@ function Box({
     primary = false,
     dev = false,
     plus = false,
+    analytics = false,
     style,
     children,
     id,
@@ -30,6 +31,7 @@ function Box({
         primary,
         dev,
         plus,
+        analytics,
     });
     return (
         <Comp id={id} className={classes} {...props}>
