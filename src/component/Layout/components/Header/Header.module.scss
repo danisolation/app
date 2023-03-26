@@ -9,3 +9,23 @@
     height: 20px;
     width: 20px;
 }
+
+.list {
+    width: 300px;
+    height: 500px;
+    background-color: aliceblue;
+}
+
+.noti {
+    padding: 10px;
+    border-bottom: 1px solid black;
+
+    h3 {
+        color: #2cb853;
+    }
+}
+
+.foot {
+    display: flex;
+    justify-content: flex-end;
+}
