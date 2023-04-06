@@ -8,8 +8,8 @@ const cx = classNames.bind(styles);
 function Manager() {
     return (
         <div className={cx('wrapper')}>
-            <Box dev>
-                <img className={cx('img')} src={images.air} alt="air-conditioner" />
+            <Box dev to={'/manager/fan'}>
+                <img className={cx('img')} src={images.fan} alt="fan" />
             </Box>
             <Box dev>
                 <img className={cx('img')} src={images.water} alt="water-tap" />

@@ -8,12 +8,14 @@ import SensorData from '../pages/SensorData';
 import Settings from '../pages/Settings';
 import Historical from '~/pages/HistoricalData/Historical';
 import Analytics from '~/pages/HistoricalData/Analytics';
+import Fan from '~/pages/Manager/Fan';
 
 // Public Routes
 const publicRoutes = [
     { path: '/', component: DashBoard },
     { path: '/historicaldata', component: HistoricalData },
     { path: '/manager', component: Manager },
+    { path: '/manager/fan', component: Fan },
     { path: '/sensordata', component: SensorData },
     { path: '/settings', component: Settings },
     { path: '/historicaldata/historical', component: Historical },

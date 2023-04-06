@@ -12,6 +12,7 @@ const images = {
     home: require('~/assets/img/home.png'),
     checked: require('~/assets/img/checked.png'),
     frequency: require('~/assets/img/frequency-graph.png'),
+    fan: require('~/assets/img/fan.png'),
 };
 
 export default images;

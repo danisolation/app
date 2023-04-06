@@ -5,10 +5,14 @@ import styles from './Dashboard.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTemperatureHalf, faDroplet, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
+import { useStore } from '~/store';
 
 const cx = classNames.bind(styles);
 
 function DashBoard() {
+    const data = useStore();
+    const { lastTemp, lastHumid } = data;
+
     return (
         <div className={cx('wrapper')}>
             <Background />
@@ -19,7 +23,7 @@ function DashBoard() {
                     }}
                     leftIcon={<FontAwesomeIcon className={cx('icon')} icon={faTemperatureHalf} />}
                 >
-                    27&#8451;
+                    {lastTemp ? `${lastTemp}oC` : '...'}
                 </Box>
             </Link>
             <Link to={'/sensordata'}>
@@ -29,7 +33,7 @@ function DashBoard() {
                     }}
                     leftIcon={<FontAwesomeIcon className={cx('icon')} icon={faDroplet} />}
                 >
-                    35%
+                    {lastHumid ? `${lastHumid}%` : '...'}
                 </Box>
             </Link>
             <Link to={'/sensordata'}>
