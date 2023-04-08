@@ -13,6 +13,9 @@ const images = {
     checked: require('~/assets/img/checked.png'),
     frequency: require('~/assets/img/frequency-graph.png'),
     fan: require('~/assets/img/fan.png'),
+    power: require('~/assets/img/power.png'),
+    tempChart: require('~/assets/img/tempChart.png'),
+    powerOn: require('~/assets/img/power-on.png'),
 };
 
 export default images;

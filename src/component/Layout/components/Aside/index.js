@@ -21,9 +21,7 @@ function Aside() {
                 <Button primary to={'/'} leftIcon={<MdDashboard className={cx('icon')} />}>
                     DashBoard
                 </Button>
-                <Button primary to={'/sensordata'} leftIcon={<FaThermometerThreeQuarters className={cx('icon')} />}>
-                    Sensor Data
-                </Button>
+
                 <Button primary to={'/historicaldata'} leftIcon={<SiSimpleanalytics className={cx('icon')} />}>
                     Historical Data and Analytics
                 </Button>

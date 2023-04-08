@@ -1,0 +1,42 @@
+.wrapper {
+    height: 100%;
+}
+
+.img {
+    display: flex;
+    height: 30%;
+    justify-content: center;
+}
+
+.control {
+    height: 70%;
+}
+
+.level {
+    float: left;
+    display: flex;
+    align-items: center;
+    width: 70%;
+    height: 100%;
+
+    span {
+        font-size: 40px;
+        margin-left: 100px;
+    }
+
+    strong {
+        cursor: pointer;
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+}
+
+.power {
+    width: 30%;
+    height: 100%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

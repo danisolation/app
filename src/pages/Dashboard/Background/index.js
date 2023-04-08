@@ -60,7 +60,7 @@ function Background() {
             <div className={cx('left', 'col')}>{greet ? `${greet}` : '...'}</div>
             <div className={cx('right', 'col')}>
                 <div className={cx('top', 'row')}>
-                    {hours ? `${hours}:${mins < 10 ? `0${mins}` : `${mins}`}` : '...'}
+                    {hours || mins ? `${hours}:${mins < 10 ? `0${mins}` : `${mins}`}` : '...'}
                 </div>
                 <div className={cx('bot', 'row')}>{day ? `${day} ${date}/${month}/${year}` : '...'}</div>
             </div>

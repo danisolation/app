@@ -1,15 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Data(lastTemp, lastLight, lastHumid, lastFan) {
+function Data(lastTemp, lastLight, lastHumid, lastFan, tempChart) {
     this.lastTemp = lastTemp;
     this.lastLight = lastLight;
     this.lastHumid = lastHumid;
     this.lastFan = lastFan;
+    this.tempChart = tempChart;
 }
-
-const AIO_KEY = 'aio_YAxT08ymi3BwsNsMvmmoPCd0n6Gd';
-const AIO_USERNAME = 'Danny0943777525';
 
 const createStore = () => {
     const StateContext = createContext();
@@ -23,78 +21,76 @@ const createStore = () => {
         const [fan, setFan] = useState();
 
         useEffect(() => {
+            const fetchData = async () => {
+                const resLight = await axios.get(`http://localhost:8080/lastLight`);
+                const resTemp = await axios.get(`http://localhost:8080/lastTemp`);
+                const resHumid = await axios.get(`http://localhost:8080/lastHumid`);
+                const resFan = await axios.get(`http://localhost:8080/lastFan`);
+                const resTempChart = await axios.get(`http://localhost:8080/tempChart`);
+                setLight(resLight.data.value);
+                setTemp(resTemp.data.value);
+                setHumid(resHumid.data.value);
+                setFan(resFan.data.value);
+                setTempChart(resTempChart.data);
+            };
+            fetchData();
+        }, []);
+
+        useEffect(() => {
             const intervalId = setInterval(() => {
                 const fetchData = async () => {
-                    const LIGHT = 'light';
-                    const resultLight = await axios(
-                        `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${LIGHT}/data/last`,
-                        {
-                            headers: {
-                                'X-AIO-Key': AIO_KEY,
-                            },
-                        },
-                    );
+                    const resultLight = await axios.get(`http://localhost:8080/lastLight`);
 
                     setLight(resultLight.data.value);
                 };
                 fetchData();
-            }, 1000);
+            }, 30000);
             return () => clearInterval(intervalId);
         }, []);
         useEffect(() => {
             const intervalId = setInterval(() => {
                 const fetchData = async () => {
-                    const TEMP = 'temp';
-                    const resultTemp = await axios(
-                        `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${TEMP}/data/last`,
-                        {
-                            headers: {
-                                'X-AIO-Key': AIO_KEY,
-                            },
-                        },
-                    );
+                    const resultTemp = await axios.get(`http://localhost:8080/lastTemp`);
                     setTemp(resultTemp.data.value);
                 };
                 fetchData();
-            }, 1000);
+            }, 30000);
             return () => clearInterval(intervalId);
         }, []);
         useEffect(() => {
             const intervalId = setInterval(() => {
                 const fetchData = async () => {
-                    const HUMID = 'humidity';
-                    const resultHumid = await axios(
-                        `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${HUMID}/data/last`,
-                        {
-                            headers: {
-                                'X-AIO-Key': AIO_KEY,
-                            },
-                        },
-                    );
+                    const resultHumid = await axios.get(`http://localhost:8080/lastHumid`);
 
                     setHumid(resultHumid.data.value);
                 };
                 fetchData();
-            }, 1000);
+            }, 30000);
             return () => clearInterval(intervalId);
         }, []);
         useEffect(() => {
             const intervalId = setInterval(() => {
                 const fetchData = async () => {
-                    const FAN = 'fan';
-                    const resultFan = await axios(
-                        `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FAN}/data/last`,
-                        {
-                            headers: {
-                                'X-AIO-Key': AIO_KEY,
-                            },
-                        },
-                    );
+                    const resultFan = await axios.get(`http://localhost:8080/lastFan`);
 
                     setFan(resultFan.data.value);
                 };
                 fetchData();
-            }, 1000);
+            }, 30000);
+            return () => clearInterval(intervalId);
+        }, []);
+
+        const [tempChart, setTempChart] = useState([]);
+
+        useEffect(() => {
+            const intervalId = setInterval(() => {
+                const fetchData = async () => {
+                    const resultTemp = await axios.get(`http://localhost:8080/tempChart`);
+
+                    setTempChart(resultTemp.data);
+                };
+                fetchData();
+            }, 30000);
             return () => clearInterval(intervalId);
         }, []);
 
@@ -105,6 +101,7 @@ const createStore = () => {
                 lastTemp: temp,
                 lastFan: fan,
                 lastHumid: humid,
+                tempChart: tempChart,
             };
             setState(data1);
         }, [temp, light, fan, humid]);

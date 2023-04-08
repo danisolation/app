@@ -1,27 +1,22 @@
 import classNames from 'classnames/bind';
 import styles from './HistoricalData.module.scss';
-import { Link } from 'react-router-dom';
+import Box from '~/component/Box';
+import images from '~/assets/img';
 
 const cx = classNames.bind(styles);
 
 function HistoricalData() {
     return (
         <div className={cx('wrapper')}>
-            <div className={cx('link')}>
-                <Link to={'/historicaldata/historical'}>
-                    <div className={cx('text', 'his')}>
-                        <span>Historical Data</span>
-                    </div>
-                </Link>
-            </div>
-
-            <div className={cx('link')}>
-                <Link to={'/historicaldata/analytics'}>
-                    <div className={cx('text', 'ana')}>
-                        <span>Analytics</span>
-                    </div>
-                </Link>
-            </div>
+            <Box analytics to={'/historicaldata/tempchart'}>
+                <img className={cx('box')} src={images.tempChart} alt="frequency" />
+            </Box>
+            <Box analytics>
+                <img className={cx('box')} src={images.checked} alt="checked" />
+            </Box>
+            <Box analytics>
+                <img className={cx('box')} src={images.home} alt="home" />
+            </Box>
         </div>
     );
 }
