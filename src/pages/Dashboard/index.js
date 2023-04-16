@@ -6,12 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTemperatureHalf, faDroplet, faHouse } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useStore } from '~/store';
+import { useEffect, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 function DashBoard() {
     const data = useStore();
     const { lastTemp, lastHumid } = data;
+    const [status, setStatus] = useState('GOOD');
+
+    useEffect(() => {
+        if (parseInt(lastTemp) > 40) {
+            setStatus('WARN!');
+        } else {
+            setStatus('GOOD');
+        }
+    }, [parseInt(lastTemp)]);
 
     return (
         <div className={cx('wrapper')}>
@@ -39,11 +49,12 @@ function DashBoard() {
             <Link to={'/sensordata'}>
                 <Box
                     style={{
-                        background: 'var(--home)',
+                        background: `${status == 'GOOD' ? 'var(--home)' : 'var(--warn)'}`,
+                        fontsize: '1px',
                     }}
                     leftIcon={<FontAwesomeIcon className={cx('icon')} icon={faHouse} />}
                 >
-                    Good
+                    {status}
                 </Box>
             </Link>
         </div>

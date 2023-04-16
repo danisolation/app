@@ -1,26 +1,27 @@
 import classNames from 'classnames/bind';
-import styles from './TempChart.module.scss';
+import styles from './HumidChart.module.scss';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { useStore } from '~/store';
 import Back from '../../../component/Back';
 
 const cx = classNames.bind(styles);
 
-function TempChart() {
+function HumidChart() {
     const data = useStore();
-    const { tempChart } = data;
+    const { humidChart } = data;
+    console.log(humidChart);
 
     return (
         <div className={cx('wrapper')}>
             <Back to={'/historicaldata'} />
             <div>
-                {tempChart ? (
+                {humidChart ? (
                     <div>
-                        <h1>The temperature of the Yolo Chip</h1>
+                        <h1>The humidity of the Yolo Chip</h1>
                         <LineChart
                             width={900}
                             height={300}
-                            data={tempChart}
+                            data={humidChart}
                             margin={{
                                 top: 5,
                                 right: 30,
@@ -33,7 +34,7 @@ function TempChart() {
                             <YAxis />
                             <Tooltip />
                             <Legend />
-                            <Line type="monotone" dataKey="temperatureOfChip" stroke="#8884d8" activeDot={{ r: 8 }} />
+                            <Line type="monotone" dataKey="humidityOfChip" stroke="#8884d8" activeDot={{ r: 8 }} />
                         </LineChart>
                     </div>
                 ) : (
@@ -44,4 +45,4 @@ function TempChart() {
     );
 }
 
-export default TempChart;
+export default HumidChart;

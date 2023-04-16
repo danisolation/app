@@ -6,10 +6,10 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Back() {
+function Back({ to }) {
     return (
         <div className={cx('wrapper')}>
-            <Link to={'/historicaldata'}>
+            <Link to={to}>
                 <FontAwesomeIcon className={cx('icon')} icon={faArrowLeft} />
             </Link>
         </div>

@@ -15,6 +15,7 @@ const images = {
     fan: require('~/assets/img/fan.png'),
     power: require('~/assets/img/power.png'),
     tempChart: require('~/assets/img/tempChart.png'),
+    humidChart: require('~/assets/img/humidChart.png'),
     powerOn: require('~/assets/img/power-on.png'),
 };
 

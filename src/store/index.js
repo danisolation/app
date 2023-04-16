@@ -1,12 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-function Data(lastTemp, lastLight, lastHumid, lastFan, tempChart) {
+function Data(lastTemp, lastLight, lastHumid, lastFan, tempChart, humidChart) {
     this.lastTemp = lastTemp;
     this.lastLight = lastLight;
     this.lastHumid = lastHumid;
     this.lastFan = lastFan;
     this.tempChart = tempChart;
+    this.humidChart = humidChart;
 }
 
 const createStore = () => {
@@ -19,6 +20,8 @@ const createStore = () => {
         const [light, setLight] = useState();
         const [humid, setHumid] = useState();
         const [fan, setFan] = useState();
+        const [tempChart, setTempChart] = useState([]);
+        const [humidChart, setHumidChart] = useState([]);
 
         useEffect(() => {
             const fetchData = async () => {
@@ -27,11 +30,13 @@ const createStore = () => {
                 const resHumid = await axios.get(`http://localhost:8080/lastHumid`);
                 const resFan = await axios.get(`http://localhost:8080/lastFan`);
                 const resTempChart = await axios.get(`http://localhost:8080/tempChart`);
+                const resHumidChart = await axios.get(`http://localhost:8080/humidChart`);
                 setLight(resLight.data.value);
                 setTemp(resTemp.data.value);
                 setHumid(resHumid.data.value);
                 setFan(resFan.data.value);
                 setTempChart(resTempChart.data);
+                setHumidChart(resHumidChart.data);
             };
             fetchData();
         }, []);
@@ -80,14 +85,24 @@ const createStore = () => {
             return () => clearInterval(intervalId);
         }, []);
 
-        const [tempChart, setTempChart] = useState([]);
-
         useEffect(() => {
             const intervalId = setInterval(() => {
                 const fetchData = async () => {
                     const resultTemp = await axios.get(`http://localhost:8080/tempChart`);
 
                     setTempChart(resultTemp.data);
+                };
+                fetchData();
+            }, 30000);
+            return () => clearInterval(intervalId);
+        }, []);
+
+        useEffect(() => {
+            const intervalId = setInterval(() => {
+                const fetchData = async () => {
+                    const res = await axios.get(`http://localhost:8080/humidChart`);
+
+                    setHumidChart(res.data);
                 };
                 fetchData();
             }, 30000);
@@ -102,6 +117,7 @@ const createStore = () => {
                 lastFan: fan,
                 lastHumid: humid,
                 tempChart: tempChart,
+                humidChart: humidChart,
             };
             setState(data1);
         }, [temp, light, fan, humid]);

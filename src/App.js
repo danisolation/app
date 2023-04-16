@@ -1,9 +1,37 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useStore } from '~/store';
 import { publicRoutes } from './routes';
 import DefaultLayout from './component/Layout/DefaultLayout';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import sound from '~/assets/sound';
+import ReactHowler from 'react-howler';
 
 function App() {
+    const data = useStore();
+    const { lastTemp } = data;
+    const [status, setStatus] = useState(false);
+
+    useEffect(() => {
+        if (parseInt(lastTemp) > 40) {
+            toast.warn('WARNING!', {
+                position: 'bottom-right',
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+            setStatus(true);
+        } else {
+            setStatus(false);
+            toast.dismiss();
+        }
+    }, [parseInt(lastTemp)]);
     return (
         <Router>
             <div className="App">
@@ -30,6 +58,18 @@ function App() {
                     })}
                 </Routes>
             </div>
+            <ReactHowler src={sound.warning} loop={true} playing={status} />
+
+            <ToastContainer
+                position="bottom-right"
+                autoClose={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                theme="light"
+            />
         </Router>
     );
 }
