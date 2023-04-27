@@ -8,6 +8,7 @@ function Box({
     to,
     primary = false,
     dev = false,
+    dev1 = false,
     plus = false,
     analytics = false,
     style,
@@ -30,6 +31,7 @@ function Box({
         [className]: className,
         primary,
         dev,
+        dev1,
         plus,
         analytics,
     });

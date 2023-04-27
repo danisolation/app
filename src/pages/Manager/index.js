@@ -11,17 +11,11 @@ function Manager() {
             <Box dev to={'/manager/fan'}>
                 <img className={cx('img')} src={images.fan} alt="fan" />
             </Box>
-            <Box dev>
-                <img className={cx('img')} src={images.water} alt="water-tap" />
-            </Box>
-            <Box dev>
+            <Box dev to={'/manager/light'}>
                 <img className={cx('img')} src={images.lamp} alt="lamp" />
             </Box>
-            <Box dev>
-                <img className={cx('img')} src={images.screen} alt="screen" />
-            </Box>
-            <Box plus>
-                <img className={cx('img')} src={images.plus} alt="plus" />
+            <Box dev to={'/manager/pump'}>
+                <img className={cx('img')} src={images.water} alt="water-tap" />
             </Box>
         </div>
     );

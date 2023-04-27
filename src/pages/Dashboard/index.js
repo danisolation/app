@@ -26,7 +26,7 @@ function DashBoard() {
     return (
         <div className={cx('wrapper')}>
             <Background />
-            <Link to={'/sensordata'}>
+            <Link to={'/historicaldata/tempchart'}>
                 <Box
                     style={{
                         background: 'var(--temp)',
@@ -36,7 +36,7 @@ function DashBoard() {
                     {lastTemp ? `${lastTemp}oC` : '...'}
                 </Box>
             </Link>
-            <Link to={'/sensordata'}>
+            <Link to={'/historicaldata/humidchart'}>
                 <Box
                     style={{
                         background: 'var(--hud)',
@@ -46,10 +46,10 @@ function DashBoard() {
                     {lastHumid ? `${lastHumid}%` : '...'}
                 </Box>
             </Link>
-            <Link to={'/sensordata'}>
+            <Link>
                 <Box
                     style={{
-                        background: `${status == 'GOOD' ? 'var(--home)' : 'var(--warn)'}`,
+                        background: `${status === 'GOOD' ? 'var(--home)' : 'var(--warn)'}`,
                         fontsize: '1px',
                     }}
                     leftIcon={<FontAwesomeIcon className={cx('icon')} icon={faHouse} />}

@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from 'react';
 import { useEffect, useState } from 'react';
 import { useStore } from '~/store';
 import { publicRoutes } from './routes';
@@ -8,11 +9,83 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import sound from '~/assets/sound';
 import ReactHowler from 'react-howler';
+import Modal from 'react-modal';
+import axios from 'axios';
+const AIO_KEY = process.env.REACT_APP_KEY;
+const AIO_USERNAME = 'Danny0943777525';
+
+Modal.setAppElement('#root');
 
 function App() {
     const data = useStore();
-    const { lastTemp } = data;
+    const { lastTemp, pir } = data;
     const [status, setStatus] = useState(false);
+
+    const [isOpen, setIsOpen] = useState(false);
+    const handlePirValueSubmit = async (pirValue) => {
+        const FEED_NAME = 'pir';
+        const newData = {
+            value: pirValue,
+        };
+        axios
+            .post(`https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`, newData, {
+                headers: {
+                    'X-AIO-Key': AIO_KEY,
+                },
+            })
+            .then((response) => {
+                console.log('Data added successfully:', response.data);
+            })
+            .catch((error) => {
+                console.error('Error adding data:', error);
+            });
+    };
+    const closeModal = () => {
+        setIsOpen(false);
+        setStatus(false);
+        toast.dismiss();
+        handlePirValueSubmit(String(0));
+    };
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            backgroundColor: '#ffffff',
+            borderRadius: '10px',
+            padding: '20px',
+            border: 'none',
+            boxShadow: '0px 5px 15px rgba(0, 0, 0, 0.5)',
+            maxWidth: '600px',
+            width: '100%',
+            fontFamily: 'Arial',
+            fontSize: '16px',
+            textAlign: 'center',
+        },
+        overlay: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        },
+    };
+
+    const buttonStyles = {
+        backgroundColor: '#4caf50',
+        border: 'none',
+        color: 'white',
+        padding: '12px 24px',
+        borderRadius: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease-in-out',
+    };
+
+    const closeButtonStyles = {
+        ...buttonStyles,
+        backgroundColor: '#e74c3c',
+    };
 
     useEffect(() => {
         if (parseInt(lastTemp) > 40) {
@@ -32,6 +105,24 @@ function App() {
             toast.dismiss();
         }
     }, [parseInt(lastTemp)]);
+
+    useEffect(() => {
+        if (parseInt(pir) == 1) {
+            toast.warn('WARNING!', {
+                position: 'bottom-right',
+                autoClose: false,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'dark',
+            });
+            setIsOpen(true);
+            setStatus(true);
+        }
+    }, [parseInt(pir)]);
+
     return (
         <Router>
             <div className="App">
@@ -70,100 +161,14 @@ function App() {
                 draggable
                 theme="light"
             />
+            <Modal isOpen={isOpen} onRequestClose={closeModal} style={customStyles}>
+                <p>Cảnh báo có người!</p>
+                <button style={closeButtonStyles} onClick={closeModal}>
+                    Xác nhận
+                </button>
+            </Modal>
         </Router>
     );
 }
 
 export default App;
-// import React, { useState, useRef, useEffect } from 'react';
-// import axios from 'axios';
-// // import { Line } from 'react-chartjs-2';
-// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
-// function App() {
-//     const AIO_KEY = 'aio_YAxT08ymi3BwsNsMvmmoPCd0n6Gd';
-//     const AIO_USERNAME = 'Danny0943777525';
-
-//     const [DHT20Temp, setDHT20Temp] = useState();
-//     useEffect(() => {
-//         const intervalId = setInterval(() => {
-//             const fetchData = async () => {
-//                 const FEED_NAME = 'temp';
-//                 const result = await axios(
-//                     `https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data/last`,
-//                     {
-//                         headers: {
-//                             'X-AIO-Key': AIO_KEY,
-//                         },
-//                     },
-//                 );
-//                 setDHT20Temp(result.data.value);
-//             };
-//             fetchData();
-//         }, 1000);
-//         return () => clearInterval(intervalId);
-//     }, []);
-
-//     return (
-//         <div className="App">
-//             <div>
-//                 {DHT20Temp ? (
-//                     <p>
-//                         The current temperature is <span style={{ color: 'blue', fontWeight: '600' }}>{DHT20Temp}</span>{' '}
-//                         degrees Celsius.
-//                     </p>
-//                 ) : (
-//                     <p>Loading temperature data...</p>
-//                 )}
-//                 {console.log(DHT20Temp)}
-//             </div>
-//         </div>
-//     );
-// }
-
-// // import { Fragment } from 'react';
-// // import { Routes, Route, Link } from 'react-router-dom'
-// // import { publicRoutes } from '~/routes';
-// // import { DefaultLayout } from '~/components/Layout';
-
-// // function App() {
-
-// //   return (
-// //     <div className='app'>
-// //       <nav>
-// //         <ul>
-// //           <li>
-// //             <Link to='/'>Home</Link>
-// //           </li>
-// //           <li>
-// //             <Link to='/report'>Report</Link>
-// //           </li>
-// //           <li>
-// //             <Link to='/config'>Config</Link>
-// //           </li>
-// //         </ul>
-// //       </nav>
-
-// //       <Routes>
-// //         {publicRoutes.map((route, index) => {
-// //           const Page = route.component;
-
-// //           let Layout = DefaultLayout;
-
-// //           if (route.layout) {
-// //             Layout = route.layout;
-// //           } else if (route.layout === null) {
-// //             Layout = Fragment;
-// //           }
-
-// //           return <Route key={index} path={route.path} element={<Layout>
-// //                                                                 <Page />
-// //                                                               </Layout>} />;
-// //         })}
-// //       </Routes>
-
-// //     </div>
-// //   )
-// // }
-
-// export default App;

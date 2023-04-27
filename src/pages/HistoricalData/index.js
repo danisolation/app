@@ -14,9 +14,6 @@ function HistoricalData() {
             <Box analytics to={'/historicaldata/humidchart'}>
                 <img className={cx('box')} src={images.humidChart} alt="checked" />
             </Box>
-            <Box analytics>
-                <img className={cx('box')} src={images.home} alt="home" />
-            </Box>
         </div>
     );
 }

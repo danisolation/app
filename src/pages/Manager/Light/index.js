@@ -1,8 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './Fan.module.scss';
+import styles from './Light.module.scss';
 import { useStore } from '~/store';
 import images from '~/assets/img';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Back from '~/component/Back';
 import 'react-notifications-component/dist/theme.css';
@@ -14,26 +14,17 @@ const AIO_USERNAME = 'Danny0943777525';
 
 const cx = classNames.bind(styles);
 
-function Fan() {
+function Light() {
     const data = useStore();
-    const { lastFan } = data;
-    const init = parseInt(lastFan);
+    const { lastLight } = data;
+    const init = parseInt(lastLight);
     const [level, setLevel] = useState();
     const [power, setPower] = useState();
 
     useEffect(() => {
         setLevel(init);
     }, [init]);
-    const addLevel = () => {
-        setLevel(level + 1);
-        handleFanValueSubmit(String(level + 1));
-    };
-    const subLevel = () => {
-        if (level > 0) {
-            setLevel(level - 1);
-            handleFanValueSubmit(String(level - 1));
-        }
-    };
+
     useEffect(() => {
         if (level > 0) {
             setPower(images.powerOn);
@@ -45,19 +36,19 @@ function Fan() {
         if (power === images.powerOn) {
             setPower(images.power);
             setLevel(0);
-            handleFanValueSubmit(String(0));
+            handleLightValueSubmit(String(0));
         } else {
             setPower(images.powerOn);
-            handleFanValueSubmit(String(30));
+            handleLightValueSubmit(String(1));
 
-            setLevel(30);
+            setLevel(1);
         }
     };
 
-    const handleFanValueSubmit = async (fanValue) => {
-        const FEED_NAME = 'fan';
+    const handleLightValueSubmit = async (LightValue) => {
+        const FEED_NAME = 'light';
         const newData = {
-            value: fanValue,
+            value: LightValue,
         };
         axios
             .post(`https://io.adafruit.com/api/v2/${AIO_USERNAME}/feeds/${FEED_NAME}/data`, newData, {
@@ -82,42 +73,14 @@ function Fan() {
                 console.error('Error adding data:', error);
             });
     };
-    const [finalLevel, setFinalLevel] = useState(); // Initial Level value
-
-    const handleMouseUp = () => {
-        setFinalLevel(level);
-        handleFanValueSubmit(level);
-    };
 
     return (
         <div className={cx('wrapper')}>
             <Back to={'/manager'} />
             <div className={cx('img')}>
-                <img src={images.fan} alt="fan" />
+                <img src={images.lamp} alt="Light" />
             </div>
             <div className={cx('control')}>
-                <div className={cx('level')}>
-                    <span>Level:</span>
-                    <span onClick={subLevel}>
-                        <strong>-</strong>
-                    </span>
-
-                    <div className={cx('slider')}>
-                        <input
-                            className={cx('input')}
-                            type="range"
-                            min="0"
-                            max="100"
-                            value={level}
-                            onChange={(event) => setLevel(parseInt(event.target.value))}
-                            onMouseUp={handleMouseUp}
-                        />
-                        <p>{init !== NaN ? `${level}` : '...'}</p>
-                    </div>
-                    <span onClick={addLevel}>
-                        <strong>+</strong>
-                    </span>
-                </div>
                 <div className={cx('power')} onClick={handlePower}>
                     <img src={power} alt="power" />
                 </div>
@@ -139,4 +102,4 @@ function Fan() {
     );
 }
 
-export default Fan;
+export default Light;
